@@ -1,7 +1,7 @@
 import React from "react";
-import reduxProvider from "./reduxProvider";
+import ReduxProvider from "./ReduxProvider";
 const Providers = ({ children }) => {
-  return <reduxProvider>{children}</reduxProvider>;
+  return <ReduxProvider>{children}</ReduxProvider>;
 };
 
 export default Providers;
