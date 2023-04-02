@@ -7,6 +7,8 @@ const initialState = {
   appdata: [],
   status: "idle", // idle | loading | successful | failed
   error: null,
+  maxrequests: 0,
+  maxresponses: 0,
 };
 
 export const appSlice = createSlice({
@@ -32,7 +34,8 @@ export const appSlice = createSlice({
           const appname = _.find(state.appname, {
             app_id: item.app_id,
           });
-
+          state.maxrequests = Math.max(state.maxrequests, item.requests);
+          state.maxresponses = Math.max(state.maxresponses, item.responses);
           return {
             ...item,
             name: appname.app_name,
@@ -40,7 +43,7 @@ export const appSlice = createSlice({
             ctr: (item.clicks / item.impressions) * 100,
           };
         });
-        // console.log(updateddata)
+        console.log(updateddata);
         state.appdata = updateddata;
       })
       .addCase(Appdata.rejected, (state, action) => {
@@ -56,5 +59,6 @@ export const getappname = (state) => state.appslice.appname;
 export const getappdata = (state) => state.appslice.appdata;
 export const getstatus = (state) => state.appslice.status;
 export const geterror = (state) => state.appslice.error;
-
+export const getMaxReq = (state) => state.appslice.maxrequests;
+export const getMaxRes = (state) => state.appslice.maxresponses;
 export default appSlice.reducer;

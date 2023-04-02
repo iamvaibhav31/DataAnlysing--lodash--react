@@ -31,7 +31,7 @@ const Dataanalytics = () => {
   }, [SearchParams, dispatch]);
 
   return (
-    <div className="px-14">
+    <div className="lg:px-8 md:px-6 sm:px-4 px-2">
       <div className=" flex justify-between  py-4">
         <button
           type="button"

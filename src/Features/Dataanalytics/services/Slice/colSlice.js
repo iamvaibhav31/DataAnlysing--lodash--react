@@ -63,31 +63,32 @@ export const colSlice = createSlice({
   name: "AddName",
   initialState,
   reducers: {
-    hidecol: (state, action) => {
-      const updatecol = state.colnames.map((item) => {
-        if (action.payload.includes(item.colname)) {
-          return {
-            ...item,
-            show: !item.show,
-          };
-        } else {
-          return item;
-        }
-      });
-
-      state.colnames = updatecol;
-    },
     dndRedu: (state, action) => {
+      let updatecol = [];
       const { active, over } = action.payload;
       if (active !== over) {
-        const updatecol = arrayMove(state.colnames, active, over);
-        state.colnames = updatecol;
+        updatecol = arrayMove(state.colnames, active, over);
+      } else {
+        updatecol = state.colnames.map((item, index) => {
+          if (index === active) {
+            return {
+              ...item,
+              show: !item.show,
+            };
+          } else {
+            return item;
+          }
+        });
       }
+      state.colnames = updatecol;
+    },
+    reset: () => {
+      return initialState;
     },
   },
 });
 
-export const { hidecol, dndRedu } = colSlice.actions;
+export const { hidecol, dndRedu, reset, hidecol2 } = colSlice.actions;
 export const getcol = (state) => state.colslice.colnames;
 
 export default colSlice.reducer;
